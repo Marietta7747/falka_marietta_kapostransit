@@ -174,50 +174,50 @@ try {
 /*--------------------------------------------------------------------------------------------------------OTHER PARTS END------------------------------------------------------------------------------------------------*/
 
 /*--------------------------------------------------------------------------------------------------------CSS - FOOTER---------------------------------------------------------------------------------------------------*/
-    footer {
-        text-align: center;
-        padding: 10px;
-        background-color: var(--primary-color);
-        color: var(--text-light);
-        border-radius: 10px;
-        margin-top: 20px;
-        box-shadow: var(--shadow);
-        background: var(--primary-color);
-        color: var(--text-light);
-        padding: 3rem 2rem;
-        margin-top: 4rem;
-    }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: var(--shadow);
+            background: var(--primary-color);
+            color: var(--text-light);
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
 
-    .footer-content {
-        max-width: 1200px;
-        margin: 0 auto;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 2rem;
-    }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
 
-    .footer-section h2 {
-        margin-bottom: 1rem;
-        color: var(--text-color);
-    }
+        .footer-section h2 {
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
 
-    .footer-links {
-        list-style: none;
-    }
+        .footer-links {
+            list-style: none;
+        }
 
-    .footer-links li {
-        margin-bottom: 0.5rem;
-    }
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
 
-    .footer-links a {
-        color: var(--text-light);
-        text-decoration: none;
-        transition: var(--transition);
-    }
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: var(--transition);
+        }
 
-    .footer-links a:hover {
-        color: var(--accent-color);
-    }
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
 /*--------------------------------------------------------------------------------------------------------FOOTER END-----------------------------------------------------------------------------------------------------*/
 
 
@@ -416,9 +416,9 @@ try {
             <h1><i class="fas fa-bus"></i> Kaposvár Helyi Járatok</h1> 
     </div>
 
-        <div id="timeNumCon" class="timeCon"></div>
+    <div id="timeNumCon" class="timeCon"></div>
 
-        <div id="timeContainer" class="time-container"></div>
+    <div id="timeContainer" class="time-container"></div>
 
 <!-- -----------------------------------------------------------------------------------------------------HTML - FOOTER------------------------------------------------------------------------------------------------ -->
     <footer>
