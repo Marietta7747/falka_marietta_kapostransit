@@ -29,34 +29,35 @@ if (!isset($_SESSION['user_id'])) {
     <script src="hetvegefigyelo.js"></script>
 
 <script>
-  document.getElementById('menuBtn').addEventListener('click', function() {
-    this.classList.toggle('active');
-    document.getElementById('dropdownMenu').classList.toggle('active');
-});
+/*--------------------------------------------------------------------------------------------------------JS - NAV-----------------------------------------------------------------------------------------------------*/
+        document.getElementById('menuBtn').addEventListener('click', function() {
+            this.classList.toggle('active');
+            document.getElementById('dropdownMenu').classList.toggle('active');
+        });
 
-// Kívülre kattintás esetén bezárjuk a menüt
-document.addEventListener('click', function(event) {
-    const menu = document.getElementById('dropdownMenu');
-    const menuBtn = document.getElementById('menuBtn');
-    
-    if (!menu.contains(event.target) && !menuBtn.contains(event.target)) {
-        menu.classList.remove('active');
-        menuBtn.classList.remove('active');
-    }
-});
+        // Kívülre kattintás esetén bezárjuk a menüt
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('dropdownMenu');
+            const menuBtn = document.getElementById('menuBtn');
+            
+            if (!menu.contains(event.target) && !menuBtn.contains(event.target)) {
+                menu.classList.remove('active');
+                menuBtn.classList.remove('active');
+            }
+        });
 
-// Aktív oldal jelölése
-document.addEventListener('DOMContentLoaded', function() {
-    const currentPage = window.location.pathname.split('/').pop();
-    const menuItems = document.querySelectorAll('.menu-items a');
-    
-    menuItems.forEach(item => {
-        if (item.getAttribute('href') === currentPage) {
-            item.classList.add('active');
-        }
-    });
-});
-//Nav end
+        // Aktív oldal jelölése
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPage = window.location.pathname.split('/').pop();
+            const menuItems = document.querySelectorAll('.menu-items a');
+            
+            menuItems.forEach(item => {
+                if (item.getAttribute('href') === currentPage) {
+                    item.classList.add('active');
+                }
+            });
+        });
+/*---------------------------------------------------------------------------------------------------------NAV END-----------------------------------------------------------------------------------------------------*/
 </script>
 
     <style>
@@ -73,31 +74,31 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
 /*--------------------------------------------------------------------------------------------------------CSS - HEADER---------------------------------------------------------------------------------------------------*/
-    .header {
-        position: relative;
-        background: var(--primary-color);
-        color: var(--text-light);
-        padding: 1rem;
-    }
+        .header {
+            position: relative;
+            background: var(--primary-color);
+            color: var(--text-light);
+            padding: 1rem;
+        }
 
-    .header h1 {
-        text-align: center;
-        font-size: 2rem;
-        padding: 1rem 0;
-        margin-left: 38%;
-        display: inline-block;
-    }
+        .header h1 {
+            text-align: center;
+            font-size: 2rem;
+            padding: 1rem 0;
+            margin-left: 38%;
+            display: inline-block;
+        }
 
-    .nav-wrapper {
-        position: absolute;
-        top: 1rem;
-        left: 1rem;
-        z-index: 1000;
-    }
+        .nav-wrapper {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1000;
+        }
 
-    .nav-container {
-        position: relative;
-    }
+        .nav-container {
+            position: relative;
+        }
 /*--------------------------------------------------------------------------------------------------------HEADER END-----------------------------------------------------------------------------------------------------*/
 
         /* Custom map and UI enhancements */
@@ -160,22 +161,22 @@ document.addEventListener('DOMContentLoaded', function() {
 <body>
 
 <!-- -----------------------------------------------------------------------------------------------------HTML - HEADER----------------------------------------------------------------------------------------------- -->
-<div class="header">
-    <div class="nav-wrapper">
-        <div class="nav-container">
-            <button class="menu-btn" id="menuBtn">
-                <div class="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </button>
+    <div class="header">
+        <div class="nav-wrapper">
+            <div class="nav-container">
+                <button class="menu-btn" id="menuBtn">
+                    <div class="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </button>
             <nav class="dropdown-menu" id="dropdownMenu">
                 <ul class="menu-items">
                     <li>
                     <a href="index.php" class="active">
                                 <img src="home.png" alt="Főoldal">
-                                <span>Főoldal</span>
+                                <span>Főolldal</span>
                             </a>
                         </li>
                         <li>
@@ -218,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function() {
             </nav>
         </div>
     </div>
-                <h1>Kaposvár Közlekedési Zrt.</h1>
+            <h1>Kaposvár Közlekedési Zrt.</h1>
         </div>
 <!-- -----------------------------------------------------------------------------------------------------HEADER END-------------------------------------------------------------------------------------------------- -->
 
@@ -383,646 +384,374 @@ document.addEventListener('DOMContentLoaded', function() {
         </button>
         </a>
     </div>
-</div>
 
-    <script>
+<script>
 
-/*--------------------------------------------------------------------------------------------------------JS - DROPDOWNMENU----------------------------------------------------------------------------------------------*/
-    
+        // Global variables for map and routing
+        let map;
+        let directionsService;
+        let directionsRenderer;
+        let markers = [];
+        let currentPolyline = null;
+        let currentMarkers = [];
+        let routesData = {};
+        let activeInfoWindow = null;
 
-/*--------------------------------------------------------------------------------------------------------DROPDOWNMENU END-----------------------------------------------------------------------------------------------*/
-// Global variables for map and routing
-let map;
-let directionsService;
-let directionsRenderer;
-let markers = [];
-let currentPolyline = null;
-let currentMarkers = [];
-let routesData = {};
-let activeInfoWindow = null;
+        // Kaposvár central coordinates
+        const KAPOSVAR_CENTER = {
+            lat: 46.3593,
+            lng: 17.7967
+        };
 
-// Kaposvár central coordinates
-const KAPOSVAR_CENTER = {
-    lat: 46.3593,
-    lng: 17.7967
-};
+        // Dropdown Menu Functionality
+        function setupDropdownMenu() {
+            const menuBtn = document.getElementById('menuBtn');
+            const dropdownMenu = document.getElementById('dropdownMenu');
 
-// Dropdown Menu Functionality
-function setupDropdownMenu() {
-    const menuBtn = document.getElementById('menuBtn');
-    const dropdownMenu = document.getElementById('dropdownMenu');
+            if (menuBtn && dropdownMenu) {
+                menuBtn.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    dropdownMenu.classList.toggle('active');
+                });
 
-    if (menuBtn && dropdownMenu) {
-        menuBtn.addEventListener('click', function() {
-            this.classList.toggle('active');
-            dropdownMenu.classList.toggle('active');
-        });
+                // Close menu when clicking outside
+                document.addEventListener('click', function(event) {
+                    if (!dropdownMenu.contains(event.target) && !menuBtn.contains(event.target)) {
+                        dropdownMenu.classList.remove('active');
+                        menuBtn.classList.remove('active');
+                    }
+                });
 
-        // Close menu when clicking outside
-        document.addEventListener('click', function(event) {
-            if (!dropdownMenu.contains(event.target) && !menuBtn.contains(event.target)) {
-                dropdownMenu.classList.remove('active');
-                menuBtn.classList.remove('active');
+                // Highlight active page in menu
+                const currentPage = window.location.pathname.split('/').pop();
+                const menuItems = document.querySelectorAll('.menu-items a');
+                
+                menuItems.forEach(item => {
+                    if (item.getAttribute('href') === currentPage) {
+                        item.classList.add('active');
+                    }
+                });
             }
-        });
+        }
 
-        // Highlight active page in menu
-        const currentPage = window.location.pathname.split('/').pop();
-        const menuItems = document.querySelectorAll('.menu-items a');
-        
-        menuItems.forEach(item => {
-            if (item.getAttribute('href') === currentPage) {
-                item.classList.add('active');
+
+        // Initialize Map
+        function initMap() {
+            // Map initialization with enhanced options
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: KAPOSVAR_CENTER,
+                zoom: 13,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                mapTypeControl: true,
+                mapTypeControlOptions: {
+                    style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+                    position: google.maps.ControlPosition.TOP_RIGHT
+                },
+                zoomControl: true,
+                zoomControlOptions: {
+                    position: google.maps.ControlPosition.RIGHT_CENTER
+                },
+                scaleControl: true,
+                streetViewControl: true,
+                streetViewControlOptions: {
+                    position: google.maps.ControlPosition.RIGHT_BOTTOM
+                },
+                fullscreenControl: true,
+                styles: [
+                    {
+                        featureType: "transit.station",
+                        elementType: "labels.icon",
+                        stylers: [{ visibility: "on" }]
+                    }
+                ]
+            });
+
+            // Initialize directions services
+            directionsService = new google.maps.DirectionsService();
+            directionsRenderer = new google.maps.DirectionsRenderer({
+                map: map,
+                suppressMarkers: true,
+                preserveViewport: true
+            });
+
+            // Setup components
+            setupAutocomplete();
+            setupEventListeners();
+            loadRouteData();
+        }
+
+        // Setup Autocomplete with Enhanced Options
+        function setupAutocomplete() {
+            const options = {
+                componentRestrictions: { country: 'hu' },
+                types: ['geocode'],
+                bounds: new google.maps.LatLngBounds(
+                    new google.maps.LatLng(46.2093, 17.6467),
+                    new google.maps.LatLng(46.5093, 17.9467)
+                ),
+                strictBounds: true,
+                fields: ['address_components', 'geometry', 'name', 'formatted_address']
+            };
+
+            const startInput = document.getElementById('start');
+            const endInput = document.getElementById('end');
+            
+            if (startInput && endInput) {
+                const startAutocomplete = new google.maps.places.Autocomplete(startInput, options);
+                const endAutocomplete = new google.maps.places.Autocomplete(endInput, options);
+
+                startAutocomplete.addListener('place_changed', () => handlePlaceChanged(startAutocomplete, 'start'));
+                endAutocomplete.addListener('place_changed', () => handlePlaceChanged(endAutocomplete, 'end'));
             }
-        });
-    }
-}
+        }
 
-
-// Initialize Map
-function initMap() {
-    // Map initialization with enhanced options
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: KAPOSVAR_CENTER,
-        zoom: 13,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-        mapTypeControl: true,
-        mapTypeControlOptions: {
-            style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
-            position: google.maps.ControlPosition.TOP_RIGHT
-        },
-        zoomControl: true,
-        zoomControlOptions: {
-            position: google.maps.ControlPosition.RIGHT_CENTER
-        },
-        scaleControl: true,
-        streetViewControl: true,
-        streetViewControlOptions: {
-            position: google.maps.ControlPosition.RIGHT_BOTTOM
-        },
-        fullscreenControl: true,
-        styles: [
-            {
-                featureType: "transit.station",
-                elementType: "labels.icon",
-                stylers: [{ visibility: "on" }]
+        // Handle Place Selection with Improved Filtering
+        function handlePlaceChanged(autocomplete, type) {
+            const place = autocomplete.getPlace();
+            if (!place.geometry) {
+                showAlert('Kérem válasszon egy létező helyszínt a listából');
+                return;
             }
-        ]
-    });
 
-    // Initialize directions services
-    directionsService = new google.maps.DirectionsService();
-    directionsRenderer = new google.maps.DirectionsRenderer({
-        map: map,
-        suppressMarkers: true,
-        preserveViewport: true
-    });
+            // Remove duplicate city names and trim
+            const input = document.getElementById(type);
+            const formattedAddress = place.formatted_address || place.name;
+            input.value = formattedAddress.replace(/,?\s*Magyarország/g, '').trim();
 
-    // Setup components
-    setupAutocomplete();
-    setupEventListeners();
-    loadRouteData();
-}
+            if (type === 'start') {
+                map.setCenter(place.geometry.location);
+                map.setZoom(15);
+            }
+        }
 
-// Setup Autocomplete with Enhanced Options
-function setupAutocomplete() {
-    const options = {
-        componentRestrictions: { country: 'hu' },
-        types: ['geocode'],
-        bounds: new google.maps.LatLngBounds(
-            new google.maps.LatLng(46.2093, 17.6467),
-            new google.maps.LatLng(46.5093, 17.9467)
-        ),
-        strictBounds: true,
-        fields: ['address_components', 'geometry', 'name', 'formatted_address']
-    };
+        // Setup Event Listeners with Enhanced Functionality
+        function setupEventListeners() {
+            const findRouteButton = document.getElementById('find-route');
+            if (findRouteButton) {
+                findRouteButton.addEventListener('click', calculateRoute);
+            }
 
-    const startInput = document.getElementById('start');
-    const endInput = document.getElementById('end');
-    
-    if (startInput && endInput) {
-        const startAutocomplete = new google.maps.places.Autocomplete(startInput, options);
-        const endAutocomplete = new google.maps.places.Autocomplete(endInput, options);
+            document.querySelectorAll('.transit-mode-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    // Clear previous route
+                    clearRoute();
 
-        startAutocomplete.addListener('place_changed', () => handlePlaceChanged(startAutocomplete, 'start'));
-        endAutocomplete.addListener('place_changed', () => handlePlaceChanged(endAutocomplete, 'end'));
-    }
-}
+                    // Remove active class from all buttons
+                    document.querySelectorAll('.transit-mode-btn').forEach(btn => 
+                        btn.classList.remove('active')
+                    );
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Handle complex route select visibility
+                    const complexSelect = document.getElementById('complex-route-select');
+                    if (this.dataset.mode === 'complex') {
+                        complexSelect.classList.remove('hidden');
+                    } else {
+                        complexSelect.classList.add('hidden');
+                    }
 
-// Handle Place Selection with Improved Filtering
-function handlePlaceChanged(autocomplete, type) {
-    const place = autocomplete.getPlace();
-    if (!place.geometry) {
-        showAlert('Kérem válasszon egy létező helyszínt a listából');
-        return;
-    }
+                    // Update route options based on selected mode
+                    updateRouteOptions(this.dataset.mode);
+                });
+            });
 
-    // Remove duplicate city names and trim
-    const input = document.getElementById(type);
-    const formattedAddress = place.formatted_address || place.name;
-    input.value = formattedAddress.replace(/,?\s*Magyarország/g, '').trim();
+            // Complex route selection event
+            const complexRouteSelect = document.getElementById('complex-route');
+            if (complexRouteSelect) {
+                complexRouteSelect.addEventListener('change', (event) => {
+                    const selectedRoute = event.target.value;
+                    if (selectedRoute) {
+                        displayLocalRoute(selectedRoute);
+                    }
+                });
+            }
+        }
 
-    if (type === 'start') {
-        map.setCenter(place.geometry.location);
-        map.setZoom(15);
-    }
-}
+        // Update Route Options Dynamically
+        function updateRouteOptions(mode) {
+            const complexRouteSelect = document.getElementById('complex-route');
+            if (!complexRouteSelect) return;
 
-// Setup Event Listeners with Enhanced Functionality
-function setupEventListeners() {
-    const findRouteButton = document.getElementById('find-route');
-    if (findRouteButton) {
-        findRouteButton.addEventListener('click', calculateRoute);
-    }
+            // Reset options
+            complexRouteSelect.innerHTML = '<option value="">Válasszon útvonalat</option>';
 
-    document.querySelectorAll('.transit-mode-btn').forEach(button => {
-        button.addEventListener('click', function() {
+            // Filter and add route options based on mode
+            Object.keys(routesData)
+                .filter(route => {
+                    switch(mode) {
+                        case 'bus': return route.includes('stopBus');
+                        case 'train': return route.includes('stopTrain');
+                        case 'complex': return true;
+                        default: return false;
+                    }
+                })
+                .forEach(route => {
+                    const option = document.createElement('option');
+                    option.value = route.replace('stop', '').replace('Back', ' vissza');
+                    option.textContent = option.value;
+                    complexRouteSelect.appendChild(option);
+                });
+        }
+
+        // Calculate Route with Comprehensive Mode Handling
+        function calculateRoute() {
             // Clear previous route
             clearRoute();
+            
+            // Get input values
+            const start = document.getElementById('start').value.trim();
+            const end = document.getElementById('end').value.trim();
+            const travelTime = document.getElementById('travel-time').value;
+            
+            // Determine active mode (default to driving)
+            const activeMode = document.querySelector('.transit-mode-btn.active')?.dataset.mode || 'driving';
+            const complexRoute = document.getElementById('complex-route').value;
 
-            // Remove active class from all buttons
-            document.querySelectorAll('.transit-mode-btn').forEach(btn => 
-                btn.classList.remove('active')
-            );
-            
-            // Add active class to clicked button
-            this.classList.add('active');
-            
-            // Handle complex route select visibility
-            const complexSelect = document.getElementById('complex-route-select');
-            if (this.dataset.mode === 'complex') {
-                complexSelect.classList.remove('hidden');
-            } else {
-                complexSelect.classList.add('hidden');
+            // Validate inputs
+            if (!start || !end) {
+                showAlert('Kérem adja meg az indulási és érkezési pontot!');
+                return;
             }
 
-            // Update route options based on selected mode
-            updateRouteOptions(this.dataset.mode);
-        });
-    });
-
-    // Complex route selection event
-    const complexRouteSelect = document.getElementById('complex-route');
-    if (complexRouteSelect) {
-        complexRouteSelect.addEventListener('change', (event) => {
-            const selectedRoute = event.target.value;
-            if (selectedRoute) {
-                displayLocalRoute(selectedRoute);
+            // Handle complex route
+            if (activeMode === 'complex' && complexRoute) {
+                displayLocalRoute(complexRoute);
+                return;
             }
-        });
-    }
-}
 
-// Update Route Options Dynamically
-function updateRouteOptions(mode) {
-    const complexRouteSelect = document.getElementById('complex-route');
-    if (!complexRouteSelect) return;
+            // Prepare route request
+            const request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.TravelMode.DRIVING,
+                region: 'hu',
+                language: 'hu',
+                optimizeWaypoints: true,
+                provideRouteAlternatives: true
+            };
 
-    // Reset options
-    complexRouteSelect.innerHTML = '<option value="">Válasszon útvonalat</option>';
-
-    // Filter and add route options based on mode
-    Object.keys(routesData)
-        .filter(route => {
-            switch(mode) {
-                case 'bus': return route.includes('stopBus');
-                case 'train': return route.includes('stopTrain');
-                case 'complex': return true;
-                default: return false;
+            // Set travel mode and options based on selected mode
+            if (activeMode) {
+                const departureTime = travelTime ? new Date(travelTime) : new Date();
+                
+                switch (activeMode) {
+                    case 'train':
+                        request.travelMode = google.maps.TravelMode.TRANSIT;
+                        request.transitOptions = {
+                            modes: ['TRAIN', 'RAIL'],
+                            routingPreference: 'FEWER_TRANSFERS',
+                            departureTime: departureTime
+                        };
+                        break;
+                    case 'bus':
+                        request.travelMode = google.maps.TravelMode.TRANSIT;
+                        request.transitOptions = {
+                            modes: ['BUS'],
+                            routingPreference: 'FEWER_TRANSFERS',
+                            departureTime: departureTime
+                        };
+                        break;
+                }
             }
-        })
-        .forEach(route => {
-            const option = document.createElement('option');
-            option.value = route.replace('stop', '').replace('Back', ' vissza');
-            option.textContent = option.value;
-            complexRouteSelect.appendChild(option);
-        });
-}
 
-// Calculate Route with Comprehensive Mode Handling
-function calculateRoute() {
-    // Clear previous route
-    clearRoute();
-    
-    // Get input values
-    const start = document.getElementById('start').value.trim();
-    const end = document.getElementById('end').value.trim();
-    const travelTime = document.getElementById('travel-time').value;
-    
-    // Determine active mode (default to driving)
-    const activeMode = document.querySelector('.transit-mode-btn.active')?.dataset.mode || 'driving';
-    const complexRoute = document.getElementById('complex-route').value;
-
-    // Validate inputs
-    if (!start || !end) {
-        showAlert('Kérem adja meg az indulási és érkezési pontot!');
-        return;
-    }
-
-    // Handle complex route
-    if (activeMode === 'complex' && complexRoute) {
-        displayLocalRoute(complexRoute);
-        return;
-    }
-
-    // Prepare route request
-    const request = {
-        origin: start,
-        destination: end,
-        travelMode: google.maps.TravelMode.DRIVING,
-        region: 'hu',
-        language: 'hu',
-        optimizeWaypoints: true,
-        provideRouteAlternatives: true
-    };
-
-    // Set travel mode and options based on selected mode
-    if (activeMode) {
-        const departureTime = travelTime ? new Date(travelTime) : new Date();
-        
-        switch (activeMode) {
-            case 'train':
-                request.travelMode = google.maps.TravelMode.TRANSIT;
-                request.transitOptions = {
-                    modes: ['TRAIN', 'RAIL'],
-                    routingPreference: 'FEWER_TRANSFERS',
-                    departureTime: departureTime
-                };
-                break;
-            case 'bus':
-                request.travelMode = google.maps.TravelMode.TRANSIT;
-                request.transitOptions = {
-                    modes: ['BUS'],
-                    routingPreference: 'FEWER_TRANSFERS',
-                    departureTime: departureTime
-                };
-                break;
-        }
-    }
-
-    // Calculate route
-    directionsService.route(request, (result, status) => {
-        if (status === google.maps.DirectionsStatus.OK) {
-            directionsRenderer.setDirections(result);
-            displayRouteDetails(result);
-            addRouteMarkers(result);
-        } else {
-            handleDirectionsError(status);
-        }
-    });
-}
-
-// Display Route Details with Enhanced Information
-function displayRouteDetails(result) {
-    const route = result.routes[0];
-    const routeInfo = document.getElementById('route-info');
-    
-    if (!route || !route.legs || !route.legs[0]) {
-        routeInfo.innerHTML = '<p>Nem található útvonal információ</p>';
-        return;
-    }
-
-    const leg = route.legs[0];
-    const departureTime = leg.departure_time ? leg.departure_time.text : '';
-    const arrivalTime = leg.arrival_time ? leg.arrival_time.text : '';
-
-    let html = `
-        <div class="route-panel bg-white rounded-lg shadow-lg p-4">
-            <div class="route-header border-b pb-4 mb-4">
-                <div class="text-xl font-bold mb-2">${departureTime} - ${arrivalTime}</div>
-                <div class="text-gray-600">
-                    <span class="font-semibold">${leg.distance.text}</span> • 
-                    <span class="font-semibold">${leg.duration.text}</span>
-                </div>
-            </div>
-            
-            <div class="route-steps space-y-4">
-                <div class="step-item flex items-start">
-                    <div class="step-icon mr-3">
-                        <i class="fas fa-map-marker-alt text-red-600 text-xl"></i>
-                    </div>
-                    <div class="step-content">
-                        <div class="font-semibold">${leg.start_address}</div>
-                        <div class="text-sm text-gray-600">${departureTime}</div>
-                    </div>
-                </div>`;
-
-    // Add route steps
-    leg.steps.forEach((step, index) => {
-        if (step.travel_mode === 'TRANSIT') {
-            const line = step.transit.line;
-            const vehicle = line.vehicle.type.toLowerCase();
-            const iconClass = vehicle === 'train' ? 'fa-train' : 'fa-bus';
-            
-            html += `
-                <div class="step-item flex items-start">
-                    <div class="step-icon mr-3">
-                        <i class="fas ${iconClass} text-blue-600 text-xl"></i>
-                    </div>
-                    <div class="step-content">
-                        <div class="font-semibold">${line.short_name || line.name}</div>
-                        <div class="text-sm">
-                            ${step.transit.departure_stop.name} → ${step.transit.arrival_stop.name}
-                        </div>
-                        <div class="text-sm text-gray-600">
-                            ${step.transit.departure_time.text} - ${step.transit.arrival_time.text}
-                            (${step.duration.text}, ${step.transit.num_stops} megálló)
-                        </div>
-                    </div>
-                </div>`;
-        } else if (step.travel_mode === 'WALKING') {
-            html += `
-                <div class="step-item flex items-start">
-                    <div class="step-icon mr-3">
-                        <i class="fas fa-walking text-green-600 text-xl"></i>
-                    </div>
-                    <div class="step-content">
-                        <div class="text-sm">
-                            Gyaloglás ${step.duration.text} (${step.distance.text})
-                        </div>
-                    </div>
-                </div>`;
-        }
-    });
-
-    // Add destination step
-    html += `
-        <div class="step-item flex items-start">
-            <div class="step-icon mr-3">
-                <i class="fas fa-flag-checkered text-green-600 text-xl"></i>
-            </div>
-            <div class="step-content">
-                <div class="font-semibold">${leg.end_address}</div>
-                <div class="text-sm text-gray-600">${arrivalTime}</div>
-            </div>
-        </div>
-    </div>
-    <div class="route-footer mt-4 pt-4 border-t text-sm text-gray-600">
-        <div class="mb-2">
-            <i class="fas fa-info-circle mr-2"></i>
-            Szolgáltató: Kaposvári Közlekedési Zrt.
-        </div>
-        <div class="text-xs">
-            Díjakkal, menetrenddel és forgalmi változásokkal kapcsolatos információk:<br>
-            Tel: +36 1 349 4949
-        </div>
-    </div>
-</div>`;
-
-    routeInfo.innerHTML = html;
-}
-
-// Add Route Markers
-function addRouteMarkers(result) {
-    const route = result.routes[0];
-    if (!route || !route.legs || !route.legs[0]) return;
-
-    const leg = route.legs[0];
-    
-    // Start marker
-    new google.maps.Marker({
-        position: leg.start_location,
-        map: map,
-        icon: {
-            url: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
-        },
-        title: 'Indulás'
-    });
-
-    // End marker
-    new google.maps.Marker({
-        position: leg.end_location,
-        map: map,
-        icon: {
-            url: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
-        },
-        title: 'Érkezés'
-    });
-
-    // Transit stop markers
-    leg.steps.forEach(step => {
-        if (step.travel_mode === 'TRANSIT') {
-            new google.maps.Marker({
-                position: step.transit.departure_stop.location,
-                map: map,
-                icon: {
-                    url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+            // Calculate route
+            directionsService.route(request, (result, status) => {
+                if (status === google.maps.DirectionsStatus.OK) {
+                    directionsRenderer.setDirections(result);
+                    displayRouteDetails(result);
+                    addRouteMarkers(result);
+                } else {
+                    handleDirectionsError(status);
                 }
             });
         }
-    });
-}
 
-// Load Route Data from Server
-async function loadRouteData() {
-    try {
-        // Fetch route data from local API
-        const response = await fetch('http://localhost:3000/api/helyibusz');
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        
-        const data = await response.json();
-        
-        // Process route data
-        routesData = data.reduce((acc, stop) => {
-            // Ensure the option exists in the accumulator
-            if (!acc[stop.option]) {
-                acc[stop.option] = [];
+        // Display Route Details with Enhanced Information
+        function displayRouteDetails(result) {
+            const route = result.routes[0];
+            const routeInfo = document.getElementById('route-info');
+            
+            if (!route || !route.legs || !route.legs[0]) {
+                routeInfo.innerHTML = '<p>Nem található útvonal információ</p>';
+                return;
             }
-            
-            // Add stop to the corresponding route
-            acc[stop.option].push({
-                name: stop.name,
-                lat: parseFloat(stop.lat),
-                lng: parseFloat(stop.lng)
+
+            const leg = route.legs[0];
+            const departureTime = leg.departure_time ? leg.departure_time.text : '';
+            const arrivalTime = leg.arrival_time ? leg.arrival_time.text : '';
+
+            let html = `
+                <div class="route-panel bg-white rounded-lg shadow-lg p-4">
+                    <div class="route-header border-b pb-4 mb-4">
+                        <div class="text-xl font-bold mb-2">${departureTime} - ${arrivalTime}</div>
+                        <div class="text-gray-600">
+                            <span class="font-semibold">${leg.distance.text}</span> • 
+                            <span class="font-semibold">${leg.duration.text}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="route-steps space-y-4">
+                        <div class="step-item flex items-start">
+                            <div class="step-icon mr-3">
+                                <i class="fas fa-map-marker-alt text-red-600 text-xl"></i>
+                            </div>
+                            <div class="step-content">
+                                <div class="font-semibold">${leg.start_address}</div>
+                                <div class="text-sm text-gray-600">${departureTime}</div>
+                            </div>
+                        </div>`;
+
+            // Add route steps
+            leg.steps.forEach((step, index) => {
+                if (step.travel_mode === 'TRANSIT') {
+                    const line = step.transit.line;
+                    const vehicle = line.vehicle.type.toLowerCase();
+                    const iconClass = vehicle === 'train' ? 'fa-train' : 'fa-bus';
+                    
+                    html += `
+                        <div class="step-item flex items-start">
+                            <div class="step-icon mr-3">
+                                <i class="fas ${iconClass} text-blue-600 text-xl"></i>
+                            </div>
+                            <div class="step-content">
+                                <div class="font-semibold">${line.short_name || line.name}</div>
+                                <div class="text-sm">
+                                    ${step.transit.departure_stop.name} → ${step.transit.arrival_stop.name}
+                                </div>
+                                <div class="text-sm text-gray-600">
+                                    ${step.transit.departure_time.text} - ${step.transit.arrival_time.text}
+                                    (${step.duration.text}, ${step.transit.num_stops} megálló)
+                                </div>
+                            </div>
+                        </div>`;
+                } else if (step.travel_mode === 'WALKING') {
+                    html += `
+                        <div class="step-item flex items-start">
+                            <div class="step-icon mr-3">
+                                <i class="fas fa-walking text-green-600 text-xl"></i>
+                            </div>
+                            <div class="step-content">
+                                <div class="text-sm">
+                                    Gyaloglás ${step.duration.text} (${step.distance.text})
+                                </div>
+                            </div>
+                        </div>`;
+                }
             });
-            
-            return acc;
-        }, {});
 
-        // Optional: Sort stops within each route by their order
-        Object.keys(routesData).forEach(route => {
-            routesData[route].sort((a, b) => {
-                // If you have an order property, use it here
-                // For now, we'll sort by latitude as a basic approach
-                return a.lat - b.lat;
-            });
-        });
-
-        console.log('Routes loaded:', Object.keys(routesData));
-        
-        // Update route options in the UI
-        updateRouteOptions(document.querySelector('.transit-mode-btn.active')?.dataset.mode || 'complex');
-    } catch (error) {
-        console.error('Hiba az útvonal adatok betöltésekor:', error);
-        
-        // Fallback to mock data if API fails
-        const mockRouteData = {
-            'stop12': [
-                { name: 'Helyi autóbusz-állomás', lat: 46.3615, lng: 17.7968 },
-                { name: 'Sopron u.', lat: 46.3635, lng: 17.7988 },
-                { name: 'Laktanya', lat: 46.3655, lng: 17.8008 }
-            ],
-            'stop12Back': [
-                { name: 'Laktanya', lat: 46.3655, lng: 17.8008 },
-                { name: 'Sopron u.', lat: 46.3635, lng: 17.7988 },
-                { name: 'Helyi autóbusz-állomás', lat: 46.3615, lng: 17.7968 }
-            ]
-        };
-        
-        routesData = mockRouteData;
-        console.warn('Visszatérés előre megadott útvonalakhoz.');
-        showAlert('Nem sikerült betölteni a helyi járatok adatait. Alapértelmezett adatok használata.');
-    }
-}
-
-// Display Local Route
-function displayLocalRoute(routeId) {
-    // Clear existing route
-    clearRoute();
-    
-    // Format route ID correctly
-    let formattedRouteId = routeId.includes('vissza') 
-        ? 'stop' + routeId.replace(' vissza', 'Back')
-        : 'stop' + routeId;
-
-    const routeStops = routesData[formattedRouteId];
-    
-    if (!routeStops || routeStops.length === 0) {
-        showAlert('Nem található útvonal információ.');
-        return;
-    }
-
-    // Create route coordinates
-    const routeCoordinates = routeStops.map(stop => ({
-        lat: stop.lat,
-        lng: stop.lng
-    }));
-
-    // Draw route line
-    currentPolyline = new google.maps.Polyline({
-        path: routeCoordinates,
-        geodesic: true,
-        strokeColor: '#FF0000',
-        strokeOpacity: 1.0,
-        strokeWeight: 3,
-        map: map
-    });
-
-    // Add stop markers
-    routeStops.forEach((stop, index) => {
-        const marker = createStopMarker(stop, index, routeStops.length, routeId);
-        currentMarkers.push(marker);
-    });
-
-    // Fit map to show all stops
-    const bounds = new google.maps.LatLngBounds();
-    routeCoordinates.forEach(coord => bounds.extend(coord));
-    map.fitBounds(bounds);
-
-    // Display route info
-    displayLocalRouteInfo(routeId, routeStops);
-}
-
-// Create Stop Marker
-function createStopMarker(stop, index, totalStops, routeId) {
-    const marker = new google.maps.Marker({
-        position: { 
-            lat: stop.lat,
-            lng: stop.lng
-        },
-        map: map,
-        title: stop.name,
-        icon: {
-            path: google.maps.SymbolPath.CIRCLE,
-            scale: 10,
-            fillColor: '#1E88E5',
-            fillOpacity: 1,
-            strokeWeight: 2,
-            strokeColor: '#FFFFFF'
-        },
-        label: {
-            text: (index + 1).toString(),
-            color: '#FFFFFF',
-            fontSize: '11px'
-        }
-    });
-
-    const infoWindow = createInfoWindow(stop, index, totalStops, routeId);
-
-    marker.addListener('click', () => {
-        if (activeInfoWindow) {
-            activeInfoWindow.close();
-        }
-        infoWindow.open(map, marker);
-        activeInfoWindow = infoWindow;
-    });
-
-    marker.infoWindow = infoWindow;
-    return marker;
-}
-
-// Create Info Window for Stop
-function createInfoWindow(stop, index, totalStops, routeId) {
-    const infoContent = `
-        <div class="stop-info p-4 max-w-sm">
-            <h3 class="text-lg font-bold text-blue-600 border-b-2 border-blue-200 pb-2 mb-3">
-                ${stop.name}
-            </h3>
-            <div class="info-details space-y-2">
-                <div class="coordinate-info text-sm">
-                    <div><strong>Szélesség:</strong> ${stop.lat.toFixed(6)}</div>
-                    <div><strong>Hosszúság:</strong> ${stop.lng.toFixed(6)}</div>
+            // Add destination step
+            html += `
+                <div class="step-item flex items-start">
+                    <div class="step-icon mr-3">
+                        <i class="fas fa-flag-checkered text-green-600 text-xl"></i>
+                    </div>
+                    <div class="step-content">
+                        <div class="font-semibold">${leg.end_address}</div>
+                        <div class="text-sm text-gray-600">${arrivalTime}</div>
+                    </div>
                 </div>
-                <div class="stop-position text-sm">
-                    <strong>Megálló sorszáma:</strong> ${index + 1} / ${totalStops}
-                </div>
-                <div class="route-info text-sm">
-                    <strong>Járat:</strong> ${routeId}
-                </div>
-            </div>
-            <div class="text-xs text-gray-500 mt-3">
-                Kattintson a térképre a bezáráshoz
-            </div>
-        </div>
-    `;
-
-    return new google.maps.InfoWindow({
-        content: infoContent,
-        maxWidth: 300
-    });
-}
-
-// Display Local Route Info
-function displayLocalRouteInfo(routeId, stops) {
-    const routeInfo = document.getElementById('route-info');
-    
-    let html = `
-        <div class="local-route-panel bg-white rounded-lg shadow-lg p-4">
-            <div class="route-header border-b pb-4 mb-4">
-                <div class="text-xl font-bold mb-2">Járat: ${routeId}</div>
-                <div class="text-gray-600">
-                    <span class="font-semibold">${stops.length} megálló</span>
-                </div>
-            </div>
-            
-            <div class="stops-list space-y-3">`;
-            
-    stops.forEach((stop, index) => {
-        html += `
-            <div class="stop-item flex items-center">
-                <div class="stop-number w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center mr-3">
-                    ${index + 1}
-                </div>
-                <div class="stop-details">
-                    <div class="font-semibold">${stop.name}</div>
-                </div>
-            </div>`;
-    });
-
-    html += `
             </div>
             <div class="route-footer mt-4 pt-4 border-t text-sm text-gray-600">
                 <div class="mb-2">
@@ -1030,104 +759,369 @@ function displayLocalRouteInfo(routeId, stops) {
                     Szolgáltató: Kaposvári Közlekedési Zrt.
                 </div>
                 <div class="text-xs">
-                    Menetrendi információk:<br>
+                    Díjakkal, menetrenddel és forgalmi változásokkal kapcsolatos információk:<br>
                     Tel: +36 1 349 4949
                 </div>
             </div>
         </div>`;
 
-    routeInfo.innerHTML = html;
-}
-
-// Clear Route
-function clearRoute() {
-    // Clear polyline
-    if (currentPolyline) {
-        currentPolyline.setMap(null);
-        currentPolyline = null;
-    }
-
-    // Clear markers
-    currentMarkers.forEach(marker => {
-        if (marker.infoWindow) {
-            marker.infoWindow.close();
+            routeInfo.innerHTML = html;
         }
-        marker.setMap(null);
-    });
-    currentMarkers = [];
 
-    // Close active info window
-    if (activeInfoWindow) {
-        activeInfoWindow.close();
-        activeInfoWindow = null;
-    }
+        // Add Route Markers
+        function addRouteMarkers(result) {
+            const route = result.routes[0];
+            if (!route || !route.legs || !route.legs[0]) return;
 
-    // Reset directions renderer
-    if (directionsRenderer) {
-        directionsRenderer.setMap(null);
-        directionsRenderer.setMap(map);
-    }
-}
+            const leg = route.legs[0];
+            
+            // Start marker
+            new google.maps.Marker({
+                position: leg.start_location,
+                map: map,
+                icon: {
+                    url: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+                },
+                title: 'Indulás'
+            });
 
-// Directions Error Handling
-function handleDirectionsError(status) {
-    let errorMessage = 'Ismeretlen hiba történt az útvonaltervezés során.';
-    
-    switch (status) {
-        case google.maps.DirectionsStatus.ZERO_RESULTS:
-            errorMessage = 'Nem található útvonal a megadott pontok között.';
-            break;
-        case google.maps.DirectionsStatus.NOT_FOUND:
-            errorMessage = 'A megadott címek egyike vagy mindegyike nem található.';
-            break;
-        case google.maps.DirectionsStatus.OVER_QUERY_LIMIT:
-            errorMessage = 'Az útvonaltervezési kérések száma túllépte a limitet. Kérjük próbálja később.';
-            break;
-        case google.maps.DirectionsStatus.REQUEST_DENIED:
-            errorMessage = 'Az útvonaltervezési kérés elutasítva. Ellenőrizze az API kulcsot.';
-            break;
-        case google.maps.DirectionsStatus.INVALID_REQUEST:
-            errorMessage = 'Érvénytelen útvonaltervezési kérés.';
-            break;
-    }
+            // End marker
+            new google.maps.Marker({
+                position: leg.end_location,
+                map: map,
+                icon: {
+                    url: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+                },
+                title: 'Érkezés'
+            });
 
-    showAlert(errorMessage);
-}
+            // Transit stop markers
+            leg.steps.forEach(step => {
+                if (step.travel_mode === 'TRANSIT') {
+                    new google.maps.Marker({
+                        position: step.transit.departure_stop.location,
+                        map: map,
+                        icon: {
+                            url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+                        }
+                    });
+                }
+            });
+        }
 
-// Show Alert Notification
-function showAlert(message) {
-    const alertDiv = document.createElement('div');
-    alertDiv.className = 'fixed top-4 right-4 bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded shadow-lg z-50';
-    alertDiv.innerHTML = `
-        <div class="flex items-center">
-            <i class="fas fa-exclamation-circle mr-2"></i>
-            <span>${message}</span>
-        </div>
-    `;
-    
-    document.body.appendChild(alertDiv);
-    
-    setTimeout(() => {
-        alertDiv.remove();
-    }, 3000);
-}
+        // Load Route Data from Server
+        async function loadRouteData() {
+            try {
+                // Fetch route data from local API
+                const response = await fetch('http://localhost:3000/api/helyibusz');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                // Process route data
+                routesData = data.reduce((acc, stop) => {
+                    // Ensure the option exists in the accumulator
+                    if (!acc[stop.option]) {
+                        acc[stop.option] = [];
+                    }
+                    
+                    // Add stop to the corresponding route
+                    acc[stop.option].push({
+                        name: stop.name,
+                        lat: parseFloat(stop.lat),
+                        lng: parseFloat(stop.lng)
+                    });
+                    
+                    return acc;
+                }, {});
 
-// Document Ready Initialization
-document.addEventListener('DOMContentLoaded', () => {
-    setupDropdownMenu();
+                // Optional: Sort stops within each route by their order
+                Object.keys(routesData).forEach(route => {
+                    routesData[route].sort((a, b) => {
+                        // If you have an order property, use it here
+                        // For now, we'll sort by latitude as a basic approach
+                        return a.lat - b.lat;
+                    });
+                });
 
-    // Load Google Maps script dynamically
-    const script = document.createElement('script');
-    //script.src=`https://maps.googleapis.com/maps/api/js?key=Api=places&callback=initMap&loading=async`
-    script.async = true;
-    script.defer = true;
-    document.head.appendChild(script);
-});
+                console.log('Routes loaded:', Object.keys(routesData));
+                
+                // Update route options in the UI
+                updateRouteOptions(document.querySelector('.transit-mode-btn.active')?.dataset.mode || 'complex');
+            } catch (error) {
+                console.error('Hiba az útvonal adatok betöltésekor:', error);
+                
+                // Fallback to mock data if API fails
+                const mockRouteData = {
+                    'stop12': [
+                        { name: 'Helyi autóbusz-állomás', lat: 46.3615, lng: 17.7968 },
+                        { name: 'Sopron u.', lat: 46.3635, lng: 17.7988 },
+                        { name: 'Laktanya', lat: 46.3655, lng: 17.8008 }
+                    ],
+                    'stop12Back': [
+                        { name: 'Laktanya', lat: 46.3655, lng: 17.8008 },
+                        { name: 'Sopron u.', lat: 46.3635, lng: 17.7988 },
+                        { name: 'Helyi autóbusz-állomás', lat: 46.3615, lng: 17.7968 }
+                    ]
+                };
+                
+                routesData = mockRouteData;
+                console.warn('Visszatérés előre megadott útvonalakhoz.');
+                showAlert('Nem sikerült betölteni a helyi járatok adatait. Alapértelmezett adatok használata.');
+            }
+        }
 
-// Expose global functions if needed for callback
-window.initMap = initMap;   
+        // Display Local Route
+        function displayLocalRoute(routeId) {
+            // Clear existing route
+            clearRoute();
+            
+            // Format route ID correctly
+            let formattedRouteId = routeId.includes('vissza') 
+                ? 'stop' + routeId.replace(' vissza', 'Back')
+                : 'stop' + routeId;
 
+            const routeStops = routesData[formattedRouteId];
+            
+            if (!routeStops || routeStops.length === 0) {
+                showAlert('Nem található útvonal információ.');
+                return;
+            }
 
+            // Create route coordinates
+            const routeCoordinates = routeStops.map(stop => ({
+                lat: stop.lat,
+                lng: stop.lng
+            }));
+
+            // Draw route line
+            currentPolyline = new google.maps.Polyline({
+                path: routeCoordinates,
+                geodesic: true,
+                strokeColor: '#FF0000',
+                strokeOpacity: 1.0,
+                strokeWeight: 3,
+                map: map
+            });
+
+            // Add stop markers
+            routeStops.forEach((stop, index) => {
+                const marker = createStopMarker(stop, index, routeStops.length, routeId);
+                currentMarkers.push(marker);
+            });
+
+            // Fit map to show all stops
+            const bounds = new google.maps.LatLngBounds();
+            routeCoordinates.forEach(coord => bounds.extend(coord));
+            map.fitBounds(bounds);
+
+            // Display route info
+            displayLocalRouteInfo(routeId, routeStops);
+        }
+
+        // Create Stop Marker
+        function createStopMarker(stop, index, totalStops, routeId) {
+            const marker = new google.maps.Marker({
+                position: { 
+                    lat: stop.lat,
+                    lng: stop.lng
+                },
+                map: map,
+                title: stop.name,
+                icon: {
+                    path: google.maps.SymbolPath.CIRCLE,
+                    scale: 10,
+                    fillColor: '#1E88E5',
+                    fillOpacity: 1,
+                    strokeWeight: 2,
+                    strokeColor: '#FFFFFF'
+                },
+                label: {
+                    text: (index + 1).toString(),
+                    color: '#FFFFFF',
+                    fontSize: '11px'
+                }
+            });
+
+            const infoWindow = createInfoWindow(stop, index, totalStops, routeId);
+
+            marker.addListener('click', () => {
+                if (activeInfoWindow) {
+                    activeInfoWindow.close();
+                }
+                infoWindow.open(map, marker);
+                activeInfoWindow = infoWindow;
+            });
+
+            marker.infoWindow = infoWindow;
+            return marker;
+        }
+
+        // Create Info Window for Stop
+        function createInfoWindow(stop, index, totalStops, routeId) {
+            const infoContent = `
+                <div class="stop-info p-4 max-w-sm">
+                    <h3 class="text-lg font-bold text-blue-600 border-b-2 border-blue-200 pb-2 mb-3">
+                        ${stop.name}
+                    </h3>
+                    <div class="info-details space-y-2">
+                        <div class="coordinate-info text-sm">
+                            <div><strong>Szélesség:</strong> ${stop.lat.toFixed(6)}</div>
+                            <div><strong>Hosszúság:</strong> ${stop.lng.toFixed(6)}</div>
+                        </div>
+                        <div class="stop-position text-sm">
+                            <strong>Megálló sorszáma:</strong> ${index + 1} / ${totalStops}
+                        </div>
+                        <div class="route-info text-sm">
+                            <strong>Járat:</strong> ${routeId}
+                        </div>
+                    </div>
+                    <div class="text-xs text-gray-500 mt-3">
+                        Kattintson a térképre a bezáráshoz
+                    </div>
+                </div>
+            `;
+
+            return new google.maps.InfoWindow({
+                content: infoContent,
+                maxWidth: 300
+            });
+        }
+
+        // Display Local Route Info
+        function displayLocalRouteInfo(routeId, stops) {
+            const routeInfo = document.getElementById('route-info');
+            
+            let html = `
+                <div class="local-route-panel bg-white rounded-lg shadow-lg p-4">
+                    <div class="route-header border-b pb-4 mb-4">
+                        <div class="text-xl font-bold mb-2">Járat: ${routeId}</div>
+                        <div class="text-gray-600">
+                            <span class="font-semibold">${stops.length} megálló</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stops-list space-y-3">`;
+                    
+            stops.forEach((stop, index) => {
+                html += `
+                    <div class="stop-item flex items-center">
+                        <div class="stop-number w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center mr-3">
+                            ${index + 1}
+                        </div>
+                        <div class="stop-details">
+                            <div class="font-semibold">${stop.name}</div>
+                        </div>
+                    </div>`;
+            });
+
+            html += `
+                    </div>
+                    <div class="route-footer mt-4 pt-4 border-t text-sm text-gray-600">
+                        <div class="mb-2">
+                            <i class="fas fa-info-circle mr-2"></i>
+                            Szolgáltató: Kaposvári Közlekedési Zrt.
+                        </div>
+                        <div class="text-xs">
+                            Menetrendi információk:<br>
+                            Tel: +36 1 349 4949
+                        </div>
+                    </div>
+                </div>`;
+
+            routeInfo.innerHTML = html;
+        }
+
+        // Clear Route
+        function clearRoute() {
+            // Clear polyline
+            if (currentPolyline) {
+                currentPolyline.setMap(null);
+                currentPolyline = null;
+            }
+
+            // Clear markers
+            currentMarkers.forEach(marker => {
+                if (marker.infoWindow) {
+                    marker.infoWindow.close();
+                }
+                marker.setMap(null);
+            });
+            currentMarkers = [];
+
+            // Close active info window
+            if (activeInfoWindow) {
+                activeInfoWindow.close();
+                activeInfoWindow = null;
+            }
+
+            // Reset directions renderer
+            if (directionsRenderer) {
+                directionsRenderer.setMap(null);
+                directionsRenderer.setMap(map);
+            }
+        }
+
+        // Directions Error Handling
+        function handleDirectionsError(status) {
+            let errorMessage = 'Ismeretlen hiba történt az útvonaltervezés során.';
+            
+            switch (status) {
+                case google.maps.DirectionsStatus.ZERO_RESULTS:
+                    errorMessage = 'Nem található útvonal a megadott pontok között.';
+                    break;
+                case google.maps.DirectionsStatus.NOT_FOUND:
+                    errorMessage = 'A megadott címek egyike vagy mindegyike nem található.';
+                    break;
+                case google.maps.DirectionsStatus.OVER_QUERY_LIMIT:
+                    errorMessage = 'Az útvonaltervezési kérések száma túllépte a limitet. Kérjük próbálja később.';
+                    break;
+                case google.maps.DirectionsStatus.REQUEST_DENIED:
+                    errorMessage = 'Az útvonaltervezési kérés elutasítva. Ellenőrizze az API kulcsot.';
+                    break;
+                case google.maps.DirectionsStatus.INVALID_REQUEST:
+                    errorMessage = 'Érvénytelen útvonaltervezési kérés.';
+                    break;
+            }
+
+            showAlert(errorMessage);
+        }
+
+        // Show Alert Notification
+        function showAlert(message) {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = 'fixed top-4 right-4 bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded shadow-lg z-50';
+            alertDiv.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fas fa-exclamation-circle mr-2"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(alertDiv);
+            
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 3000);
+        }
+
+        // Document Ready Initialization
+        document.addEventListener('DOMContentLoaded', () => {
+            setupDropdownMenu();
+
+            // Load Google Maps script dynamically
+            const script = document.createElement('script');
+            //script.src=`https://maps.googleapis.com/maps/api/js?key=Api=places&callback=initMap&loading=async`
+            script.async = true;
+            script.defer = true;
+            document.head.appendChild(script);
+        });
+
+        // Expose global functions if needed for callback
+        window.initMap = initMap;   
 
 </script>
 
