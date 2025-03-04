@@ -50,7 +50,6 @@ try {
         }
 
 /*-----------------------------------------------------------------------------------------------------CSS - HEADER------------------------------------------------------------------------------------------------------*/
-
         .header {
             position: relative;
             background-color: var(--primary-color);
@@ -310,7 +309,6 @@ try {
         nav.active .icon .line2 {
             transform: rotate(765deg) translateY(-5.5px);
         }
-
 /*-----------------------------------------------------------------------------------------------------HEADER END--------------------------------------------------------------------------------------------------------*/
 
 /*--------------------------------------------------------------------------------------------------------CSS - OTHER PARTS----------------------------------------------------------------------------------------------*/
@@ -321,6 +319,10 @@ try {
             background: white;
             border-radius: 15px;
             box-shadow: var(--shadow);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
 
         .input-group {
@@ -328,12 +330,17 @@ try {
             gap: 15px;
             flex-wrap: wrap;
             margin-bottom: 20px;
+            width: 100%;
         }
 
         .input-wrapper {
             flex: 1;
             min-width: 200px;
             padding-right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
         }
 
         input, select {
@@ -344,6 +351,45 @@ try {
             font-size: 14px;
             transition: all 0.3s ease;
             background-color: #fff;
+        }
+
+        input {
+            width: 100%;
+            height: 40px;
+            border-radius: 5px;
+            border: 2px solid var(--main-color);
+            background-color: var(--bg-color);
+            box-shadow: 4px 4px var(--main-color);
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--font-color);
+            padding: 5px 10px;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        input::placeholder {
+            color: var(--font-color-sub);
+            opacity: 0.8;
+        }
+
+        input:focus {
+            border: 2px solid var(--input-focus);
+        }
+
+        input:invalid {
+            border-color: var(--error-color);
+        }
+
+        input:invalid + .error-message {
+            opacity: 1;
+            max-height: 50px;
+            margin-top: 5px;
+        }
+
+        input:active {
+            box-shadow: 0px 0px var(--main-color);
+            transform: translate(3px, 3px);
         }
 
         input:focus, select:focus {
@@ -401,6 +447,12 @@ try {
             color: var(--primary-color);
             border-bottom: 2px solid var(--accent-color);
             padding-bottom: 8px;
+            color: var(--font-color);
+            font-weight: 900;
+            font-size: 20px;
+            margin-bottom: 25px;
+            width: 100%;
+            text-align: center;
         }
 
         .input-label {
@@ -408,6 +460,9 @@ try {
             margin-bottom: 5px;
             font-size: 0.9em;
             color: #666;
+            color: var(--font-color);
+            font-weight: 600;
+            font-size: 16px;
         }
 
         input:invalid, select:invalid {
@@ -419,6 +474,12 @@ try {
             font-size: 0.8em;
             margin-top: 5px;
             display: none;
+            color: var(--error-color);
+            font-size: 14px;
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
         }
 
         .price-display {
@@ -510,106 +571,21 @@ try {
             nav.active{
                 width: 95%;
             }
+
+            #invoiceForm {
+                padding: 15px;
+                gap: 15px;
+            }
+
+            .section-title {
+                font-size: 18px;
+            }
+
+            input {
+                font-size: 14px;
+            }
         }
 /*-----------------------------------------------------------------------------------------------------@MEDIA END---------------------------------------------------------------------------------------------------------*/
-
-        .container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 20px;
-        }
-
-        .section-title {
-        color: var(--font-color);
-        font-weight: 900;
-        font-size: 20px;
-        margin-bottom: 25px;
-        width: 100%;
-        text-align: center;
-        }
-
-        .input-group {
-        width: 100%;
-        }
-
-        .input-wrapper {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        width: 100%;
-        }
-
-        .input-label {
-        color: var(--font-color);
-        font-weight: 600;
-        font-size: 16px;
-        }
-
-        input {
-        width: 100%;
-        height: 40px;
-        border-radius: 5px;
-        border: 2px solid var(--main-color);
-        background-color: var(--bg-color);
-        box-shadow: 4px 4px var(--main-color);
-        font-size: 15px;
-        font-weight: 600;
-        color: var(--font-color);
-        padding: 5px 10px;
-        outline: none;
-        box-sizing: border-box;
-        }
-
-        input::placeholder {
-        color: var(--font-color-sub);
-        opacity: 0.8;
-        }
-
-        input:focus {
-        border: 2px solid var(--input-focus);
-        }
-
-        input:invalid {
-        border-color: var(--error-color);
-        }
-
-        .error-message {
-        color: var(--error-color);
-        font-size: 14px;
-        opacity: 0;
-        max-height: 0;
-        overflow: hidden;
-        transition: all 0.3s ease;
-        }
-
-        input:invalid + .error-message {
-        opacity: 1;
-        max-height: 50px;
-        margin-top: 5px;
-        }
-
-        /* Active/Pressed State */
-        input:active {
-        box-shadow: 0px 0px var(--main-color);
-        transform: translate(3px, 3px);
-        }
-
-        /* Responsive Adjustments */
-        @media (max-width: 480px) {
-        #invoiceForm {
-            padding: 15px;
-            gap: 15px;
-        }
-
-        .section-title {
-            font-size: 18px;
-        }
-
-        input {
-            font-size: 14px;
-        }
-        }
     </style>
 </head>
 <body>
@@ -672,27 +648,19 @@ try {
             </nav>
         </div>
     </div>
-<!-- -----------------------------------------------------------------------------------------------------HEADER END-------------------------------------------------------------------------------------------------- -->
 
-             <div id="toggle"></div>
-            <h1><i class="fas fa-map-marked-alt"></i>Késés Igazolás</h1>
-        </div>
-    
-
-            </ul>
-              
-            </button>
-          </nav>
-
-
-        <div class="navh1">
-        </div>
+    <div id="toggle"></div>
+        <h1><i class="fas fa-map-marked-alt"></i>Késés Igazolás</h1>
     </div>
+
+    <div class="navh1">
+    </div>
+<!-- -----------------------------------------------------------------------------------------------------HEADER END-------------------------------------------------------------------------------------------------- -->
 
     <br>
 
-<!-----------------------------------------Késések igazolás generálás------------------------------>
-<div class="container">
+<!--------------------------------------------------------------------------------------------------------Késések igazolás generálás------------------------------------------------------------------------------------->
+    <div class="container">
         <form id="kesesigazolas">
             <h1 style="text-align:center"> Késés Igazolás</h1>
             <div class="section-title">Utas adatai</div>
@@ -746,8 +714,9 @@ try {
             </div>
         </form>
     </div>
+<!--------------------------------------------------------------------------------------------------------Késések igazolás generálás end--------------------------------------------------------------------------------->
     
-<!-- -----------------------------------------------------------------------------------------------------HTML - FOOTER------------------------------------------------------------------------------------------------ -->
+<!-- -----------------------------------------------------------------------------------------------------HTML - FOOTER----------------------------------------------------------------------------------------------- -->
     <footer>
         <div class="footer-content">
             <div class="footer-section">
@@ -830,7 +799,7 @@ try {
         document.addEventListener('DOMContentLoaded', initializeDropdowns);
 
 
-        // Nav
+/*--------------------------------------------------------------------------------------------------------JS  - NAV-----------------------------------------------------------------------------------------------------*/
 
         document.getElementById('menuBtn').addEventListener('click', function() {
             this.classList.toggle('active');
@@ -859,7 +828,7 @@ try {
                 }
             });
         });
-        //Nav end
+/*--------------------------------------------------------------------------------------------------------NAV END-------------------------------------------------------------------------------------------------------*/
 
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.getElementById('kesesigazolas');
