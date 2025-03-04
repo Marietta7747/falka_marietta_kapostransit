@@ -28,183 +28,183 @@ $stmt->execute();
     <style>
      @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
-    :root {
-        --primary-color:linear-gradient(to right, #211717,#b30000);
-        --accent-color: #7A7474;
-        --text-light: #fbfbfb;
-        --background-light: #f8f9fa;
-        --transition: all 0.3s ease;
-    }
+        :root {
+            --primary-color:linear-gradient(to right, #211717,#b30000);
+            --accent-color: #7A7474;
+            --text-light: #fbfbfb;
+            --background-light: #f8f9fa;
+            --transition: all 0.3s ease;
+        }
 
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-    }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    body {
-        font-family: 'Open Sans', sans-serif;
-        color: var(--text-light);
-        background: linear-gradient(to left, #a6a6a6, #e8e8e8);
-    }
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--text-light);
+            background: linear-gradient(to left, #a6a6a6, #e8e8e8);
+        }
 
 /*--------------------------------------------------------------------------------------------------------CSS - HEADER---------------------------------------------------------------------------------------------------*/
-    .header {
-        position: relative;
-        background: var(--primary-color);
-        color: var(--text-light);
-        padding: 1rem;
-    }
+        .header {
+            position: relative;
+            background: var(--primary-color);
+            color: var(--text-light);
+            padding: 1rem;
+        }
 
-    .header h1 {
-        text-align: center;
-        font-size: 2rem;
-        padding: 1rem 0;
-        margin-left: 38%;
-        display: inline-block;
-    }
+        .header h1 {
+            text-align: center;
+            font-size: 2rem;
+            padding: 1rem 0;
+            margin-left: 38%;
+            display: inline-block;
+        }
 
-    .nav-wrapper {
-        position: absolute;
-        top: 1rem;
-        left: 1rem;
-        z-index: 1000;
-    }
+        .nav-wrapper {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1000;
+        }
 
-    .nav-container {
-        position: relative;
-    }
+        .nav-container {
+            position: relative;
+        }
 /*--------------------------------------------------------------------------------------------------------HEADER END-----------------------------------------------------------------------------------------------------*/
 
 /*--------------------------------------------------------------------------------------------------------CSS - OTHER PARTS----------------------------------------------------------------------------------------------*/
-    .container {
-        max-width: 1200px;
-        margin: 0 auto;
-    }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-    .hero {
-        background-image: url('https://kaposvariprogramok.hu/sites/default/files/120845739_825620101509249_2047839847436415923_n.jpg');
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: bottom center;
-        height: 100vh;
-        color: #fff;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        position: relative;
-        margin-bottom: 20px;
-        z-index: -2;
-    }
+        .hero {
+            background-image: url('https://kaposvariprogramok.hu/sites/default/files/120845739_825620101509249_2047839847436415923_n.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: bottom center;
+            height: 100vh;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            margin-bottom: 20px;
+            z-index: -2;
+        }
 
-    .hero::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        z-index: -1;
-    }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: -1;
+        }
 
-    .hero h1 {
-        font-size: 46px;
-        margin: -20px 0 20px;
-    }
+        .hero h1 {
+            font-size: 46px;
+            margin: -20px 0 20px;
+        }
 
-    .hero p {
-        font-size: 20px;
-        letter-spacing: 1px;
-    }
+        .hero p {
+            font-size: 20px;
+            letter-spacing: 1px;
+        }
 
-    .content h2,
-    .content h3 {
-        font-size: 150%;
-        margin: 20px 0;
-    }
+        .content h2,
+        .content h3 {
+            font-size: 150%;
+            margin: 20px 0;
+        }
 
-    .content p {
-        color: #555;
-        line-height: 30px;
-        letter-spacing: 1.2px;
-    }
+        .content p {
+            color: #555;
+            line-height: 30px;
+            letter-spacing: 1.2px;
+        }
 /*--------------------------------------------------------------------------------------------------------OTHER PARTS END------------------------------------------------------------------------------------------------*/
 
 /*--------------------------------------------------------------------------------------------------------CSS - NEWS CARDS-----------------------------------------------------------------------------------------------*/
-    .news-card {
-        background: white;
-        border-radius: 12px;
-        overflow: hidden;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        display: flex;
-        flex-direction: column;
-        height: 450px;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
+        .news-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            height: 450px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
 
-    .news-card.hidden {
-        display: none !important;
-    }
-    
-    .card-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-        gap: 25px;
-        padding: 25px;
-        margin: 0 auto;
-        max-width: 1400px;
-    }
+        .news-card.hidden {
+            display: none !important;
+        }
+        
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            padding: 25px;
+            margin: 0 auto;
+            max-width: 1400px;
+        }
 
-    .load-more-container {
-        text-align: center;
-        margin: 20px 0;
-        padding: 20px;
-    }
+        .load-more-container {
+            text-align: center;
+            margin: 20px 0;
+            padding: 20px;
+        }
 
-    .details-btn {
-        display: inline-block;
-        padding: 12px 24px;
-        background: #b30000;
-        color: white;
-        text-decoration: none;
-        border-radius: 6px;
-        font-weight: 500;
-        transition: all 0.3s ease;
-        width: 80%;
-        text-align: center;
-        margin: 0 auto;
-    }
+        .details-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #b30000;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            width: 80%;
+            text-align: center;
+            margin: 0 auto;
+        }
 
-    .details-btn:hover {
-        background: #d62b38;
-        transform: translateY(-2px);
-    }
+        .details-btn:hover {
+            background: #d62b38;
+            transform: translateY(-2px);
+        }
 /*--------------------------------------------------------------------------------------------------------NEWS CARDS END-------------------------------------------------------------------------------------------------*/
 
 /*--------------------------------------------------------------------------------------------------------CSS - MORE NEWS BUTTON-----------------------------------------------------------------------------------------*/
-    .btn-53{
-        display: inline-block;
-        padding: 15px 30px;
-        color: var(--text-light);
-        background-color: #b30000;
-        border-radius: 8px;
-        border: none;
-        font-size: 1.5rem;
-        margin-left: 42.5%;
-        width: 15%;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    }
+        .btn-53{
+            display: inline-block;
+            padding: 15px 30px;
+            color: var(--text-light);
+            background-color: #b30000;
+            border-radius: 8px;
+            border: none;
+            font-size: 1.5rem;
+            margin-left: 42.5%;
+            width: 15%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
 
-    .btn-53:hover{
-        transform: translateY(-2px);
-        background-color:#b60220;
-        color:#f5e1e1;
-        box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-    }
+        .btn-53:hover{
+            transform: translateY(-2px);
+            background-color:#b60220;
+            color:#f5e1e1;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
 /*--------------------------------------------------------------------------------------------------------MORE NEWS BUTTON END-------------------------------------------------------------------------------------------*/
 
 /*--------------------------------------------------------------------------------------------------------CSS - @MEDIA---------------------------------------------------------------------------------------------------*/
@@ -350,7 +350,7 @@ $stmt->execute();
 /*--------------------------------------------------------------------------------------------------------@MEDIA END-----------------------------------------------------------------------------------------------------*/
   
 /*--------------------------------------------------------------------------------------------------------CSS - FOOTER---------------------------------------------------------------------------------------------------*/
-    footer {
+        footer {
             text-align: center;
             padding: 10px;
             background-color: var(--primary-color);
@@ -579,12 +579,12 @@ $stmt->execute();
 
 <!-- -----------------------------------------------------------------------------------------------------HTML - MORE NEWS BUTTON-------------------------------------------------------------------------------------- -->
     <button class="btn-53" id="btnMoreNews" data-expanded="false">
-        Még több hír >> 
+        Még több hír ➡ 
     </button>
 <!-- -----------------------------------------------------------------------------------------------------MORE NEWS BUTTON END----------------------------------------------------------------------------------------- -->
 
 <!-- -----------------------------------------------------------------------------------------------------HTML - FOOTER------------------------------------------------------------------------------------------------ -->
-<footer>
+    <footer>
         <div class="footer-content">
             <div class="footer-section">
                 <h2>Kaposvár közlekedés</h2>
@@ -643,31 +643,31 @@ $stmt->execute();
 /*--------------------------------------------------------------------------------------------------------DROPDOWNMENU END-----------------------------------------------------------------------------------------------*/
     
 /*--------------------------------------------------------------------------------------------------------JS - MORE NEWS BUTTTON-----------------------------------------------------------------------------------------*/
-    document.addEventListener('DOMContentLoaded', function() {
-        const btnMoreNews = document.getElementById('btnMoreNews');
-        let isExpanded = false;
+        document.addEventListener('DOMContentLoaded', function() {
+            const btnMoreNews = document.getElementById('btnMoreNews');
+            let isExpanded = false;
 
-        function toggleNews() {
-            const cards = document.querySelectorAll('.news-card');
-            isExpanded = !isExpanded;
-            
-            cards.forEach((card, index) => {
-                if (index >= 6) {
-                    if (isExpanded) {
-                        card.classList.remove('hidden');
-                    } else {
-                        card.classList.add('hidden');
+            function toggleNews() {
+                const cards = document.querySelectorAll('.news-card');
+                isExpanded = !isExpanded;
+                
+                cards.forEach((card, index) => {
+                    if (index >= 6) {
+                        if (isExpanded) {
+                            card.classList.remove('hidden');
+                        } else {
+                            card.classList.add('hidden');
+                        }
                     }
-                }
-            });
-            
-            // Gomb szövegének frissítése
-            btnMoreNews.textContent = isExpanded ? '<< Kevesebb' : 'Még több hír >>';
-        }
+                });
+                
+                // Gomb szövegének frissítése
+                btnMoreNews.textContent = isExpanded ? '⬅ Kevesebb' : 'Még több hír ➡';
+            }
 
-        // Event listener hozzáadása a gombhoz
-        btnMoreNews.addEventListener('click', toggleNews);
-    });
+            // Event listener hozzáadása a gombhoz
+            btnMoreNews.addEventListener('click', toggleNews);
+        });
 /*--------------------------------------------------------------------------------------------------------MORE NEWS BUTTON END-------------------------------------------------------------------------------------------*/
 </script>
   </body>
