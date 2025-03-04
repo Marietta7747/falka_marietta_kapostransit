@@ -689,7 +689,7 @@ try {
     </footer>
 <!-- -----------------------------------------------------------------------------------------------------FOOTER END--------------------------------------------------------------------------------------------------- -->
 
-    <script>
+<script>
         // Next Bus Route find 
         function findNextBusDeparture(routes) {
             console.log("Routes received:", routes); // Diagnosztikai napló
@@ -1296,9 +1296,7 @@ try {
             // Your logic to show only weekend routes
             console.log("Hétvégi Közlekedés");
         }
-    </script>
-        
-    <script>
+
         document.getElementById('menuBtn').addEventListener('click', function() {
             this.classList.toggle('active');
             document.getElementById('dropdownMenu').classList.toggle('active');
@@ -1326,6 +1324,6 @@ try {
                 }
             });
         });
-    </script>
+</script>
 </body>
 </html>
