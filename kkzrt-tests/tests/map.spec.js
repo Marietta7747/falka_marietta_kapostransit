@@ -1,10 +1,11 @@
 const { test, expect } = require('@playwright/test');
+const { title } = require('process');
 
 test.describe('KKZRT Tesztek', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('http://localhost/kkzrt/login.php');
-    await page.fill('input[type="email"]', 'laszlobogdan0619@gmail.com');
-    await page.fill('input[type="password"]', 'asd1234');
+    await page.fill('input[type="email"]', 'asd@gmail.com');
+    await page.fill('input[type="password"]', 'Asdf1234');
     await page.click('text=Bejelentkezés');
   });
 
@@ -16,7 +17,9 @@ test.describe('KKZRT Tesztek', () => {
     { url: 'menetrend.php', title: 'Menetrend' },
     { url: 'jaratok.php', title: 'Járatok' },
     { url: 'info.php', title: 'Információk' },
-    { url: 'indulasidok.php?route=12', title: 'Indulási idők' }
+    { url: 'indulasidok.php?route=12', title: 'Indulási idők' },
+    { url: 'megalloidok.php?number=12&name=Laktanya%20-%20Sopron%20u.%20-%20Helyi%20autóbusz-állomás&stop_time=04%3A45%3A00&schedule_id=26', title: 'Megálló idők'},
+    { url: 'hirek.php', title: 'Hírek'}
   ];
 
   for (const pageInfo of pages) {
@@ -34,7 +37,8 @@ test.describe('KKZRT Tesztek', () => {
     { url: 'api/marker', name: 'Markerek' },
     { url: 'api/kepek', name: 'Képek' },
     { url: 'api/trip', name: 'Utazások' },
-    { url: 'api/hirek', name: 'Hírek' }
+    { url: 'api/hirek', name: 'Hírek' },
+    { url: 'api/buszjaratok', name: 'Busz járatok' }
   ];
 
   for (const endpoint of workingApiEndpoints) {
@@ -48,6 +52,23 @@ test.describe('KKZRT Tesztek', () => {
   test('Térkép megjelenítés', async ({ page }) => {
     await page.goto('http://localhost/kkzrt/terkep.php');
     await expect(page.locator('#map')).toBeVisible();
+
+    await page.goto('http://localhost/kkzrt/megallok_kereso.php');
+    await expect(page.locator('#map')).toBeVisible();
+  });
+
+  test('Hírek teljes kilistázása', async ({ page }) => {
+    await page.goto('http://localhost/kkzrt/index.php');
+
+    const btn = await page.locator('#btnMoreNews');
+
+    let isExpanded = await page.evaluate(() => window.isExpanded = false);
+    expect(isExpanded).toBeFalsy();
+
+    await btn.click();
+
+    isExpanded = await page.evaluate(() => window.isExpanded = true);
+    expect(isExpanded).toBeTruthy();
   });
 
   // API válaszok ellenőrzése konkrét tartalomra
