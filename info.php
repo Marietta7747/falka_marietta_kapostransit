@@ -262,7 +262,7 @@ catch(PDOException $e) {
         }
 /*--------------------------------------------------------------------------------------------------------HEADER END-----------------------------------------------------------------------------------------------------*/            
             
-        /* Main container styles */
+/* Main container styles */
         main {
             max-width: 1200px;
             margin: 0 auto;
@@ -554,16 +554,16 @@ catch(PDOException $e) {
 </head>
 <body>
 <!-- -----------------------------------------------------------------------------------------------------HTML - HEADER------------------------------------------------------------------------------------------------ -->
-<div class="header">
-    <div class="nav-wrapper">
-        <div class="nav-container">
-            <button class="menu-btn" id="menuBtn">
-                <div class="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </button>
+    <div class="header">
+        <div class="nav-wrapper">
+            <div class="nav-container">
+                <button class="menu-btn" id="menuBtn">
+                    <div class="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </button>
             <nav class="dropdown-menu" id="dropdownMenu">
                 <ul class="menu-items">
                         <li>
@@ -655,12 +655,8 @@ catch(PDOException $e) {
         <section id="documents" class="card">
             <h3 style="text-align:center">A 2009. évi CXXII. törvény 2.§ (3) - (4) bek. alapján közzététel</h3>
                 <ul>
-                    <li><a href="Beszerzések-2.sz_.-melléklet-2.pdf">Szerződések 2017</a></li>
                     <li><a href="#public-service">Közszolgáltatási szerződés 2013.01.01.</a>
                     <li><a href="https://www.kaposbusz.hu/static/files/oldalak/ksz1m.pdf">1. sz. melléklet</a></li>
-                    <li><a href="https://www.kaposbusz.hu/static/files/oldalak/ksz2m.pdf">2. sz. melléklet</a></li>
-                    <li><a href="https://www.kaposbusz.hu/static/files/oldalak/ksz3m.pdf">3. sz. melléklet</a></li>
-                    <li><a href="https://www.kaposbusz.hu/static/files/oldalak/ksz4m.pdf">4. sz. melléklet</a></li>
                     <li><a href="https://www.kaposbusz.hu/static/files/oldalak/ksz5m.pdf">5. sz. melléklet</a></li>
                     <li><a href="https://www.kaposbusz.hu/static/files/oldalak/ksz6m.pdf">6. sz. melléklet</a></li>
                     <li><a href="https://www.kaposbusz.hu/static/files/oldalak/ksz7m.pdf">7. sz. melléklet</a></li>
@@ -669,9 +665,6 @@ catch(PDOException $e) {
                     <li><a href="https://www.kaposbusz.hu/static/files/oldalak/ksz10m.pdf">10. sz. melléklet</a></li>
                     <li><a href="https://www.kaposbusz.hu/static/files/oldalak/ksz11m.pdf">11-12. sz. melléklet</a></li>
                     <li><a href="https://www.kaposbusz.hu/static/files/oldalak/Közszolg.szerz_.-1.-sz.-módosítás.pdf">Közszolgáltatási szerződés 1. sz. módosítás</a></li>
-                    <li><a href="https://www.kaposbusz.hu/static/files/oldalak/Közszolg.szerz_.-2.-sz.-módosítás.pdf">Közszolgáltatási szerződés 2. sz. módosítás</a></li>
-                    <li><a href="https://www.kaposbusz.hu/static/files/oldalak/Közszolg.szerz_.-3.-sz.-módosítás.pdf">Közszolgáltatási szerződés 3. sz. módosítás</a></li>
-                    <li><a href="https://www.kaposbusz.hu/static/files/oldalak/Közszolg.szerz_.-4.-sz.-módosítás.pdf">Közszolgáltatási szerződés 4. sz. módosítás</a></li>
                     <li><a href="https://www.kaposbusz.hu/static/files/oldalak/Közszolg.szerz_.-5.-sz.-módosítás.pdf">Közszolgáltatási szerződés 5. sz. módosítás</a></li>
                     <li><a href="https://www.kaposbusz.hu/static/files/oldalak/Közszolg.szerz_.-6.-sz.-módosítás.pdf">Közszolgáltatási szerződés 6. sz. módosítás</a></li>
                     <li><a href="https://www.kaposbusz.hu/static/files/oldalak/Közszolgáltatási-szerződés-7.sz_.-módosítás.pdf">Közszolgáltatási szerződés 7. sz. módosítás</a></li>
@@ -687,9 +680,6 @@ catch(PDOException $e) {
                     <li><a href="https://www.kaposbusz.hu/static/files/oldalak/Kapos-Holding-Zrt.-Adatvédelmi-Szabályzat-20191120-compressed.pdf">Adatvédelmi szabályzat</a></li>
                     <li><a href="https://www.kaposbusz.hu/static/files/oldalak/SZMSZ_2023.pdf">Szervezeti és működési szabályzat</a></li>
                     <li><a href="https://www.kaposbusz.hu/static/files/oldalak/Szervezeti-ábra.pdf">Szervezeti ábra</a></li>
-                    <li><a href="https://www.kaposbusz.hu/static/files/oldalak/Panaszkezelési szabályzat">Panaszkezelési szabályozat</a></li>
-                    <li><a href="https://www.kaposbusz.hu/static/files/oldalak/Kapos%20Holding-Szervezeti%20integritást%20sértő%20panaszok%20kezelésének%20szabályozása.pdf">Szervezeti integritást sértő panaszok kezelésének szabályozása</a>
-                    <li><a href="https://www.kaposbusz.hu/static/files/oldalak/Közzétételi%20Szabályzat_20240201.pdf">Közzétételi Szabályzat</a></li>
                     <li><a href="https://www.kaposbusz.hu/static/files/oldalak/Energetikai_jelentes_2017.pdf">Energetikai jelentés 2017.</a></li>
                     <li><a href="https://www.kaposbusz.hu/static/files/oldalak/energetika2018.pdf">Energetikai jelentés 2018.</a></li>
                     <li><a href="https://www.kaposbusz.hu/static/files/oldalak/energetika-2019.pdf">Energetikai jelentés 2019.</a></li>
@@ -728,17 +718,13 @@ catch(PDOException $e) {
                     <li><a href="https://www.kaposbusz.hu/static/files/oldalak/KKZRT_kozerdeku_adatok_2017_IV_NE.pdf">Foglalkoztatotti adatok 2017. IV. negyedév</a></li>
                     <li><a href="https://www.kaposbusz.hu/static/files/oldalak/KKZRT_kozerdeku_adatok_2018_I_NE.pdf">Foglalkoztatotti adatok 2018. I. negyedév</a></li>
                     <li><a href="https://www.kaposbusz.hu/static/files/oldalak/KKZRT_kozerdeku_adatok_2018_II_NE.pdf">Foglalkoztatotti adatok 2018. II. negyedév</a></li>
-                    <li><a href="https://www.kaposbusz.hu/static/files/oldalak/KKZRT_kozerdeku_adatok_2018_III_NE.pdf">Foglalkoztatotti adatok 2018. III. negyedév</a></li>
                     <li><a href="https://www.kaposbusz.hu/static/files/oldalak/KKözlekedési-IV.-negyedéves-közzététel.pdf">Foglalkoztatotti adatok 2018. IV. negyedév</a></li>
                     <li><a href="https://www.kaposbusz.hu/static/files/oldalak/2019-I-negyedév-közzététel.pdf">Foglalkoztatotti adatok 2019. I. negyedév</a></li>
                     <li><a href="https://www.kaposbusz.hu/static/files/oldalak/2019-II-negyedév-közzététel-KK-Zrt.pdf">Foglalkoztatotti adatok 2019. II. negyedév</a></li>
                     <li><a href="https://www.kaposbusz.hu/static/files/oldalak/2019-negyedéves-közzététel-közlekedési.pdf">Foglalkoztatotti adatok 2019. III. negyedév</a></li>
                     <li><a href="https://www.kaposbusz.hu/static/files/oldalak/2019-negyedéves-közzététel-közlekedési.pdf">Foglalkoztatotti adatok 2019. IV. negyedév</a></li>
                     <li><a href="https://www.kaposbusz.hu/static/files/oldalak/Közlekedési-2020-I-II-III-IV.-Negyedéves-közzététel.pdf">Foglalkoztatotti adatok 2020. I-IV. negyedév</a></li>
-                    <li><a href="https://www.kaposbusz.hu/static/files/oldalak/Közlekedési%202021.%20I-II-III-IV.%20negyedévi%20közzététel.pdf">Foglalkoztatotti adatok 2021. I-IV. negyedév</a></li>
                     <li><a href="https://www.kaposbusz.hu/static/files/oldalak/Közlekedési-2022.-I-IV.-negyedévi-közzététel.pdf">Foglalkoztatotti adatok 2022. I-IV. negyedév</a></li>
-                    <li><a href="https://www.kaposbusz.hu/static/files/oldalak/Közlekedési%20-%202023.%20I-IV.%20negyedévi%20közzététel.pdf">Foglalkoztatotti adatok 2023. I-IV. negyedév</a></li>
-                    <li><a href="https://www.kaposbusz.hu/static/files/oldalak/Közlekedési%20-%202024.%20I.%20negyedévi%20közzététel.pdf">Foglalkoztatotti adatok 2024. I. negyedév</a></li>
                 </ul>
         </section>
 
